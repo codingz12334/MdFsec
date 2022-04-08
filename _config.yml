@@ -73,7 +73,7 @@ branch: master
 relative_source: ../codingz12334.github.io
 destination: ../codingz12334-pages/
 production_url:  https://codingz12334.github.io/randomz/
-source_url:  https://github.com/codingz12334/randomz
+source_url:  https://github.com/codingz12334/randomz/
 
 exclude:
   - assets/css
