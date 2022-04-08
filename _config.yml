@@ -70,10 +70,10 @@ lsi: False
 username: codingz12334
 repo: codingz12334.github.io
 branch: master
-relative_source: ../codingz12334.github.io
-destination: ../codingz12334-pages/
-production_url:  https://codingz12334.github.io/randomz/
-source_url:  https://github.com/codingz12334/randomz/
+relative_source: ../jasper2/
+destination: ../jasper2-pages/
+production_url:  https://jekyllt.github.io/jasper2/
+source_url:  https://github.com/jekyllt/jasper2/
 
 exclude:
   - assets/css
