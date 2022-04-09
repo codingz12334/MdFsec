@@ -12,7 +12,7 @@ baseurl: /randomz/
 title: MdFsec
 description: A Cyberseruity Enthusiast 
 cover: assets/images/blog-cover.jpg
-logo: assets/images/mdfsec.png
+logo: assets/images/logo_transparent.png
 logo_dark: assets/images/favicon.png
 favicon: assets/images/favicon.png
 CNAME: #add cname for website to be created
