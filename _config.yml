@@ -6,7 +6,7 @@ language: 'en-uk'
 words_per_minute: 200
 
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
-baseurl: /randomz/
+baseurl: /MdFsec/
 
 # Website info
 title: MdFsec
@@ -70,10 +70,10 @@ lsi: False
 username: codingz12334
 repo: codingz12334.github.io
 branch: master
-relative_source: ../codingz12334.github.io/randomz
+relative_source: ../codingz12334.github.io/MdFsec
 destination: ../jasper2-pages/
-production_url:  https://codingz12334.github.io/randomz/
-source_url:  https://github.com/codingz12334/randomz/
+production_url:  https://codingz12334.github.io/MdFsec/
+source_url:  https://github.com/codingz12334/MdFsec/
 
 exclude:
   - assets/css
