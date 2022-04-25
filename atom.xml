@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>A Cybersecurity Enthusiast</description>
+    <link>
+    </link>
+    
+      
+      <item>
+        <title>PicoCTF Part 1</title>
+        
+          <description>&lt;p&gt;Recently, I started participating in many CTFs and wanted to hone my CTF skills. That’s where I came across PicoCTF. It’s a page where they collated all the CTF challenges they used for their events (with over 200 challenges). This is part 1 of my PicoCTF series where I walk through every PicoCTF challenge (there are more than 200 challenges collated).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 28 Mar 2022 04:00:00 +0000</pubDate>
+        <link>
+        /PicoCTF1</link>
+        <guid isPermaLink="true">/PicoCTF1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Stapler - VulnHub</title>
+        
+          <description>&lt;p&gt;Stage 1: Active Reconnaissance&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 28 Mar 2022 04:00:00 +0000</pubDate>
+        <link>
+        /Stapler</link>
+        <guid isPermaLink="true">/Stapler</guid>
+      </item>
+      
+    
+  </channel>
+</rss>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="/MdFsec/feed.xml" rel="self" type="application/atom+xml" /><link href="/MdFsec/" rel="alternate" type="text/html" /><updated>2022-04-25T17:44:48+00:00</updated><id>/MdFsec/feed.xml</id><title type="html">MdFsec</title><subtitle>A Cybersecurity Enthusiast</subtitle><entry><title type="html">Stapler - VulnHub</title><link href="/MdFsec/Stapler" rel="alternate" type="text/html" title="Stapler - VulnHub" /><published>2022-03-28T04:00:00+00:00</published><updated>2022-03-28T04:00:00+00:00</updated><id>/MdFsec/Stapler</id><content type="html" xml:base="/MdFsec/Stapler">&lt;p&gt;Stage 1: Active Reconnaissance&lt;/p&gt;
+
+&lt;p&gt;Let us first identify the IP address of the target machine.&lt;/p&gt;
+
+&lt;p&gt;Steps:&lt;/p&gt;
+
+&lt;p&gt;Nmap Scan the IP Range of 192.168.56.0/24 (Found in General Requirements)&lt;/p&gt;
+
+&lt;p&gt;Nmap -sn option :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/vyMqnx8odg2Lp4RzQPZDkO5bYdjJj_tIznVsdfnUM9RV1a6puxfzO9hmFcoVLBThgkpUjtKcVVCJ45Olk0uUT3rrwYEfhy5TamuGxQYa_fTFyl8AQNPDVMn7rNpprw&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nmap Scan the IP Range of 192.168.56.0/24. To identify which IP address is your target VM, you can see that 192.168.56.108 and 192.168.56.109 is running through Oracle VirtualBox virtual NIC and since 192.168.56.109 is my Kali VM’s IP Address, 192.168.56.108 is our target VM’s IP address&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/s7hYbSn3YFXPZHxuIVW-_Ns-1CLPuhmVyd41CsimPpA6RMTJtedYF_QC_7hT3pTzvhXQPjOeVVa0e3mb1EIXZVAibWIPbxIW9QVoGfNoyCYQQnNcwMLZgi96hrLbvdh7DXoctZc&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nmap scan is used to determine the ports that are open. &lt;/p&gt;
+
+&lt;p&gt;The option -Pn is to run port scan only and disable host discovery. &lt;/p&gt;
+
+&lt;p&gt;The option -T5 is for insane speed scan. This allows the nmap scan to run much faster since we are scanning all ports.&lt;/p&gt;
+
+&lt;p&gt;The option -p- is to scan all ports from port 1 to port 65,535. Using this option, will make nmap scan all ports allowing any hidden open ports to show as well.&lt;/p&gt;
+
+&lt;p&gt;As you can see port 12380 is open but the service is unknown&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/2F4gj8KcqwD9PBURSwBQUlWkyqBy6M8AT9NXopetUPrbLaWZoPUwPWxCcHFwQBTdFrDKjPE6Va8LdfLG4TuyRZgGDLNdaqZAj1P7PR1Cs27u5m6C3Pxh3-qkxTqhejAjri4kF2g&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This command is to Aggressive scan port 12380. The reason for this is because we found that port 12380 is open but the service is unknown hence aggressive scanning the port might give us the service that is running on the port. &lt;/p&gt;
+
+&lt;p&gt;As we can see, port 12380 is running a http service and it’s version is Apache httpd 2.4.18 ((Ubuntu)&lt;/p&gt;
+
+&lt;p&gt;On a non-standard port, an Apache server is operating. So let us take a look at it as it might give some useful information or even allow us to exploit into the target machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/UkZ92Jixdc2nF87-hfgrxRatR67C21B50rnBwutexLNcYx5u2B7eqni97VZKFpD6jaIoeUEhAF8fN_Y6gsjk1zyDhJDkYL7G2yZzMjSh-u5IK4dLNZKQjX_cewZbqqfKhh1M8o8&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Search &lt;a href=&quot;http://192.168.56.108:12380&quot;&gt;http://192.168.56.108:12380&lt;/a&gt; . This will bring us to this page. Nothing important or useful can be found here. Inspecting the webpage also doesn’t give us anything useful. So let us use a Web Application Analysis tool to get more information from this website.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/oPcmdfJLOX9NQc7V0IfzRw-UNo0Re4OBTEDmoRh7Q72B0CMj00ljQHk5dD1b5YFn8LVma4VsLW00s-iRwlRBgaUeOojcPTI2p8DGB7FXi4G9nTw9Rqczl2Wrr_jAaf9UJWESZkE&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nikto is a web server scanner so let us use that to scan the web server.&lt;/p&gt;
+
+&lt;p&gt;Run the command and wait for the output. As you can see Nikto has revealed a number of useful information that can be used.&lt;/p&gt;
+
+&lt;p&gt;Firstly, we can see that the website has the SSL certificate and uses SSL. SSL is Secure Sockets Layer.  It is a security protocol.&lt;/p&gt;
+
+&lt;p&gt;When a website has the SSL certificate, https is in the URL instead of http.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/oPcmdfJLOX9NQc7V0IfzRw-UNo0Re4OBTEDmoRh7Q72B0CMj00ljQHk5dD1b5YFn8LVma4VsLW00s-iRwlRBgaUeOojcPTI2p8DGB7FXi4G9nTw9Rqczl2Wrr_jAaf9UJWESZkE&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nikto has also found 3 directories which are /admin112233/, /blogblog/ and /phpmyadmin/. Lastly, Nikto has found a robots.txt file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/oPcmdfJLOX9NQc7V0IfzRw-UNo0Re4OBTEDmoRh7Q72B0CMj00ljQHk5dD1b5YFn8LVma4VsLW00s-iRwlRBgaUeOojcPTI2p8DGB7FXi4G9nTw9Rqczl2Wrr_jAaf9UJWESZkE&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/-Z51Xkk4jgRM2BnhG0I9y9PNIcuyDO7ZUCM2Wka2z3zY2yIk3L7Lbdzmj2OkTcJ_Zox6jXOMLxF6ZlL9-zOemjlz52XLELHMlrT7bINrFZATwZbveHkuoZDfYg5jkc_02tu5QZ8&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Opening &lt;a href=&quot;https://192.168.56.108:12380/robots.txt&quot;&gt;https://192.168.56.108:12380/robots.txt&lt;/a&gt; allowed us to find the directories that were found in the nikto scan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/urUAkjRC3nDGkhzf1ekLsGqtcZISrHj5grIr8H-nf2OkiLGLu83QFEx6iUJG1LdCmodTRTBZPWD5U7BnV_mKkJXjec6JUAaRVurnikulRaXeOvj18qlpkUygrg38qV1hv53Gv6c&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Opening &lt;a href=&quot;https://192.168.56.108:12380/admin112233xt&quot;&gt;https://192.168.56.108:12380/admin112233&lt;/a&gt; did not help us find anything at all.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/KIvy95evp20f6epUr2AqOpu71ONLEriGFSTOgkADb5opwPmKXfnTox011YGEeLJpL6we6Xz0KTFD22JGlkDjwLlTGTYHBeK5wABjXQk98pZSPC3NQodMj4cXv0XkF7HBdHJU_20&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Opening &lt;a href=&quot;https://192.168.56.108:12380/phpmyadmin/&quot;&gt;https://192.168.56.108:12380/phpmyadmin/&lt;/a&gt; brought us to a database login page. This is not useful information&lt;/p&gt;
+
+&lt;p&gt;(DON’T KNOW IF I SHOULD KEEP THIS)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/oi2VY819JisgNAwnGpqFx42wDxY1iQbBLfNnOcA4RqYlAN7nqq1wQh6RkmcstAs8ScQXxV8asJ9rVrAK6OlGRqnMDFE1_2vFc36-XPgzJfj9ns-Qg3hp71s-z0tsfGodaHPAxwU&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/GEBhFHNdOnCSR0laKOVKJ2A-BttAI-dU3O2vmcSEWJxdAwKVDtt4R8JXlzZfPrMNzG0e8nSUepz3B1E68Gq59xet0TRs-6Wwd0VE196K88QK4taLnlXMnr1ttbwx3A36BAxcIL4&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Fortunately, opening &lt;a href=&quot;https://192.168.56.108:12380/blogblog/&quot;&gt;https://192.168.56.108:12380/blogblog/&lt;/a&gt; has brought us to a website run by WordPress. So now we can use wpscan(WordPress scan) to scan and enumerate users and plugins.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/Zs6AFEbWgHQFdPPhr-i1NJaW8_Eatjh7aNEHQl7ZWT_0DaldAApI0AEsFnT6n11b9bGk7TuUqgTlcVbEfHS1KL43n2-KucNE11_emAvRY0p_US4U8_oM3OJ9iJpdGLKbgtd-RXY&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The command is wpscan –url &lt;a href=&quot;about:blank&quot;&gt;https://192.168.56.12380/blogblog&lt;/a&gt; -e u –disable-tls-checks&lt;/p&gt;
+
+&lt;p&gt;-e u is enumerating users&lt;/p&gt;
+
+&lt;p&gt;–disable-tls-checks disables the transport layer security so that wpscan can work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/wzH831wvV-RcV3hf8RZg_fiLth6TlwNYqP13B6VWPoxPFzXvNiKUjt7ohdaSmq6YBbq2LA3ycNbIyXKdtxhGHw0kADq9EFITVuKrZfLmnbNFBiBgTBo9l-M4z8nZvSWZnwbUQSI&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/ThprrPCre5MlA0EZN7QxFBhvYyyM2v5KBzhd5RatPzNRWo2tnvMc_GGd8dez3Sd0Ek-yOqTgTmxq0AuwC8EFmZDao_0rJErPGWfM-mW1WhMcmST0AploZOMDXcNvFRhgqc5tKkA&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These are the users that were found when enumerating users through wpscan&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Users&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;john&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;elly&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;peter&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;barry&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;garry&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;harry&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;scott&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;kathy&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;tim&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;heather&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;John smith is the display name. This means that it is not the credentials that is used to log in. As you can see John Smith owns this place. So we can assume he is the owner/admin of this website. So if we hack into John smith’s account, we should be able to get full access to the website.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/0p7_BjarVUTDPGb83Y1FH15pYH5VGmvNM_paplGSgf8BesfpF3hllheV8wexV-dEOGEsJuUuabxVibybkY0L1XyHESrBvFck4wYZuiTrSmtSMWFmAT-YRAFNyY0dTJP6I_QMfQw&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, now let us use brute force attack to break into john’s account.&lt;/p&gt;
+
+&lt;p&gt;So let’s use the rockyou.txt dictionary to break into john’s account. The reason I am using rockyou.txt is because it has approximately 14 million passwords. Hence it is very effective.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/HbSgs-1-GiuCRi78kCgM9YAVpS3EVmH7rxKip-ZbMvMLcFA_KDMhXrWh-9LharJQEizNcxVnJS0Q_f7PnSGO-eorgqD74Mt29RKryzqzSWtjpg3gjaqTnDrA3wYotNB9emM3vQ4&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us run the command.&lt;/p&gt;
+
+&lt;p&gt;We got the password of john in our 1st request.&lt;/p&gt;
+
+&lt;p&gt;Username: john&lt;/p&gt;
+
+&lt;p&gt;Password: incorrect&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/bGDVTXW_Gd_KDN6qhQH6jFg5B0ZGkf8yrzoWL7QvQRURrEmkyrB-xtQ5KSUf9Txk5AlcDnJR1GQdElWlMqWdSgx5pVLdyZPobiXi-EFzes43V5KsRHkwfxJ_rLb_G8iGJbPzloc&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now let us login into john using the password incorrect.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/RvHswvkWQ9vBn2Nwj2WcYrlogGqE3Duq3g29_xx1SU_f5xSvq0vzJ_cAQJve2F3hR9FeEYOWyxbJ9YdWuxQNEmIHZQI4Jpg9pMiLJ0H3Q-f6djzLezmV_dHluKqKufHdGSC3Jv4&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, let us upload a plugin&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/bnqjPulj5VcqfVqBfYflhsqMXjBCrtTpcavNE0oar8CkL2BqOd5W1p1AgGj8b0SbmY7cyv-wtjyAtbRhekss8M7bkLvw6hKr-fsrQo5KTdiFFxfxwW4iKobOFVItHGtEFKbosWk&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/CqvC4p8jrpk_h9FmnJsh7Aj-l-DjiHBaIdpMekMNGjolVfG6FNOEA72f9iEyEyILMqb2iwpJHj89Gkco7cIn1GPTXuGsIJnUOKekznJDf9ApsjDmwqARBE9dJk4-uQecevu614Y&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we will upload the php-reverse shell by pentest monkey as a plugin. Copy the link.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/IFQvpeCid5a0_tMltKDtvucypYlmm3-U64oXAjsxVZFTbtB5KB7D7IMNocbbsjnjShc2Czj0TUHaGscRDLXYCYo1ZaAWC523JcKghkjccG3ZOUvaO8heED5JuETHTj8jPj5gO8k&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lets a directory for the php-reverse shell. Then let us download the php-reverse shell in the directory.&lt;/p&gt;
+
+&lt;p&gt;Let us make some changes before uploading.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/TTOXsRglEQGi6MaRXctcpor102zwTMdVBXi4z4EvLtvoHdYMzdQTt4vEN-Gt3RZhkkX5FmNF2PteVZzwgBoDXyKGAjYnrd_vF3qfEdVJNO5CiswkU-XEJYsUQGqaPatOAbIXRQI&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Change the Ip to our own Ip address &lt;/p&gt;
+
+&lt;p&gt;Change the port number to an unused port&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/g_1EoZYBwYDBhg53x1g1zA0mnaCLNOIMOFDyAQkg-pixbIuA4hQj4Kmv20K6WzWCRPPaz1zufaptq_KAr-WpDkkWRWxFhOa8cqJ9j9vFh6ckTSa8nJhKoQMUbnuy0MvwLrH7yYE&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lets set up a listener first in port 443&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/WhQrkVKhdToKaufo0sNnOb8gUNheP2TAYWbYmtdJ3Iw3IwrMKm6yJc9WLtCZomHLKSVpGfOoUfOko4hO6wqd33CdAh6C1uGcteT3B6SqYvYuiuZ7wHBN-FWgfzMMCF9f2ixGOBY&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s upload the shell&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/Q8uisgiHkockBGD0rrllM73ZmyRVvw5hWM_JhAIon0oZNlp1LkfPChQnuuPUcEP-HiY247Fu5MJjLheNMmii-yUFa6slH5TFwusf5izEdLQfvdwu6P674TLi5KeCBWVQFshGlLM&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lets upload the shell&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/pedsy1pzyTGu7y6F-lkr-Un6WKj9o2C2FN4Lpofpihi1QrLjDFFoxc9RQvLgKKhFZgiHVq2UHS0mrGS102fjPO-IK8kJTvWGnTd7YV3HgCT3EDjw6Ii8OvEW0bBhXMjo5NpOCoQ&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click on install now&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/8KNtSOZjggMXWDfLKrjbZeYMqA3gV2nEVvmHTZRowhb15KsXuXpqpmEg2sKfmb5Pf8EvJmxQFmKomqdQe33jP9gzDtYnbhKmjnQ8rpOQet3bj09raU7h3aMLBxvBd3NCrUmKcfg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/8KNtSOZjggMXWDfLKrjbZeYMqA3gV2nEVvmHTZRowhb15KsXuXpqpmEg2sKfmb5Pf8EvJmxQFmKomqdQe33jP9gzDtYnbhKmjnQ8rpOQet3bj09raU7h3aMLBxvBd3NCrUmKcfg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can access the shell by going to &lt;a href=&quot;https://192.168.56.108:12380/blogblog/wp-content/uploads/&quot;&gt;https://192.168.56.108:12380/blogblog/wp-content/uploads/&lt;/a&gt;. Now click on the shell that we just upload.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/hfHQMcSUJ_HfdpsWmDLUsoe3t3Oy2ysFmPmXUmSH_MU4qNAszxPUJCEQ7svKo1Gd28AMh_9ofXOgkT3tKySYrvjQvxe3iBDI8GkNFJP4_kAw9AfgSSAUssZCPvQ3g1Y1LB0loxs&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see our kali VM’s port 443 that was listening received the signal&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/JESOoxzKROH8oaTYTwTRDs8FVkuMMZ4TuHhZdIRpB7gkv9bQPGCu7E6j1OQhJMTJx570diqDKt3uROVDXziGQctC4Y3MPxGLeUmSO48BZ4YAmCFHNkQDWhqwUFdef4QaKm2_gdE&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we have access to our target VM. We can prove this by looking at the ip address. Type the command ifconfig and as you can see the ip address is 192.168.56.108 which is our target vm’s ip address.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/L0-HgS5oTRKuI8vKpFmAhDPpSm3FnfnQ3dVaZjTTyiFFVsmYYga4XT9YbHWCnC5TWSIEYJHwbUUc82QO-2Pkmu6UKNUYWxaH9kprC3Z2qYLC89K5AR-bn766XYHYkUIlNK7Z1Ms&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use the python code to access the shell.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/pBFYsSs9oPSq0sxjq960N_jdCk0Yv_t-39Fo5i7d6MjYBSkNGie72Y9_MBohYHvOIEb7LgMRHHgr_TsRo00wMybDyCM3YPFPrrBBDb_S7puVXW9uLehN9VXrf4d46wl1P-SXcsk&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Anyone has the permission to read all files in the machine so let us take a look at the bash_history to find useful information.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/CdcmKIMo4RUhh8ZnrTzeFV9Qno5GUvQjpi1iV1QELgk8V4oBm3IDz3jy8l89XwFlnKI2wRJNsUiIsM-AxevLR3Y92vOkqVJEuU7a0YgLqR-VimrHDezDWfAfykErZnGUzMQP7Vs&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When we look through the bash_history , we have found two user credentials.&lt;/p&gt;
+
+&lt;p&gt;JKanode : thisismypassword&lt;/p&gt;
+
+&lt;p&gt;Peter: JZQuyIN5&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/Ao94x6T4C5yZ9mcDFglbDYKh24E6dBs8DjLcwmCTr6MlFF-xP0sR10xCrPljrQnDev6LNjnrGsaNJcr5mC-mJ7P0L8gsgyvLKjY7LwKJ_kAuVLKxXx_xkBhrzhB_0Gy6Esqklvc&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us ssh into peter.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/6jsElBv6LAE1YU0Ww6WSxBwVwwqc-PiEj6DND5cn21x8LBOC80rGfN2DUYRU3a16XTblwl4la10xUiNtQM3mz8oXtSTgFmj6gykm8poPb34Eiqr6tlH1jHPTVJBdSgMJqgJJJYg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Type the password of peter : JZQuyIN5&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/y6sRJ1ajC-482aJLdWy8Mo3h7IIWyN7MWTn77-Q4RiEDhlFiJV3eq_iLe4wTxCJOI5IcLYGTJpSMg-KI2-l3DVSnF2N6Mwq83VLOPQuW2pOkwEiWoN--HVZKDCSfpQn3un2t5PU&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select 2&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/WbrHmWRzZLgBN63o9uzVYhP0kcgy43Po_vkCD8h4FlRJHbbMkcVu1Fs-T4gZOmtVBORrywiVpvcW38JqgbSKdAogVXTLmTVhyDUoZH_vVQcJS9wZ8q71YsQf0i8Umi0h9UETXnc&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Check the ifconfig to double confirm that we are in our target machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/KRtLsgMRrSmQr7gvxM0BCzebFSM-4exPnJ55iWNEKT-lSUJvy7FYT1D5rIOSpJAdxf_EPTmJGHNwQ7OA-N7LCovhtGBje_w2Jp2gH2mCKRngcnfWJ4zHdJ-fq4uKAMMw_HNq1HA&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/hGUbnMM0e9B5NwX1NREbRq1BL_rL9lGLU2B5U3G_m_E-KGK6mmYr3lTrivkLzixSnAMyidgKtM0OGvcfALL4ULtijekSkWRUteKHowCR4QJWsrUkIAt1mFs101rZx7kfuuneJms&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then run the command sudo -l. This lets us be the super user which gives us elevated priveleges. Then Type the password for peter. Now let us sudo su root which allows us to switch the user to root. After that let us check by running the command whoami. As you can see the output shows root. So we have successfully completed privilege escalation. We can check the machine’s Operating System by running the command hostnamectl, lsb_release -a and cat /etc/os-release.&lt;/p&gt;</content><author><name>farhaan</name></author><category term="Getting started" /><summary type="html">Stage 1: Active Reconnaissance</summary></entry><entry><title type="html">PicoCTF Part 1</title><link href="/MdFsec/PicoCTF1" rel="alternate" type="text/html" title="PicoCTF Part 1" /><published>2022-03-28T04:00:00+00:00</published><updated>2022-03-28T04:00:00+00:00</updated><id>/MdFsec/PicoCTF1</id><content type="html" xml:base="/MdFsec/PicoCTF1">&lt;p&gt;Recently, I started participating in many CTFs and wanted to hone my CTF skills. That’s where I came across PicoCTF. It’s a page where they collated all the CTF challenges they used for their events (with over 200 challenges). This is part 1 of my PicoCTF series where I walk through every PicoCTF challenge (there are more than 200 challenges collated).&lt;/p&gt;
+
+&lt;p&gt;CHALLENGE: OBEDIENT CAT&lt;/p&gt;
+
+&lt;p&gt;Category: General Skills&lt;/p&gt;
+
+&lt;p&gt;Difficulty: sUpER EZY&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/5pD90gGY_VED6lVhFg4unGCVEYwyNsUzbp845NGle4NL0ZxKD5LkYERdzeUsNg-Er-Yg2MTzHbG-jIYetLX2r11jCC9zKpdJZoyOI9hP-cSoovbaTLYDfs2I9lGCKX7ZbfxcKNfS&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This challenge required me to download a text file that literally had the flag. &lt;/p&gt;
+
+&lt;p&gt;Command Used: cat flag.txt&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/dTqDisJuWEmbux9cba-Kcp6gXfIC7-m9oFriuBB6HykVoW6C2LnBcS2k4cYFGKj1XcLnz6Z5z_a6KyQVJrXV8yB_zX6BeboJk4AUz_yTVOjRh9kJ8a2hkAMCScWzhW7-7g34CD6i&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Flag: picoCTF{s4n1ty_v3r1f13d_1a94e0f9}&lt;/p&gt;
+
+&lt;p&gt;CHALLENGE: Mod 26&lt;/p&gt;
+
+&lt;p&gt;Category: Cryptography&lt;/p&gt;
+
+&lt;p&gt;Difficulty: sUpER EZY&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/r53Zkc9XKgSWhufD6zxeX1j1cHvlDzgwLFnUWcY0kr0IMScPovC8Abxdho6Y21PczGxSvJ38ge4TqKLCzTWKmMWLSSfP0QM4IRZ1GuLY6_fmsnT1yDwbhb5xJR7Xt5D3hJ5mPaEZ&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I was given a encoded flag in ROT13(assuming from the caption).&lt;/p&gt;
+
+&lt;p&gt;Encoded flag: cvpbPGS{arkg_gvzr_V’yy_gel_2_ebhaqf_bs_ebg13_jdJBFOXJ}&lt;/p&gt;
+
+&lt;p&gt;I decoded the flag using an online ROT13 decoder and this is the flag.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh6.googleusercontent.com/BnRPbPAehlNVT0v00I52075i6G-c_uCxAdnHCpsqviBt_veqdJfuSJoxEdrayXAwqJ-M0nED01jTDZcWnKsJcMpLhbsVnMWwnlQmSv0SyVwnbJJvq0DRiJ2URYgNoaFzlj7gmZ5E&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Flag: picoCTF{next_time_I’ll_try_2_rounds_of_rot13_wqWOSBKW}&lt;/p&gt;
+
+&lt;p&gt;CHALLENGE: Nice netcat…&lt;/p&gt;
+
+&lt;p&gt;Category: General Skills&lt;/p&gt;
+
+&lt;p&gt;Difficulty: sUpER EZY&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/BfzMQWVT1qtNyxTsbdHxBai255WSAEUX6sHrD6FowRfkbOCxcGt__dq2WzTV855M9703VZB4nHyok5HAK2BCokbPC0dAAOUC-8mRCHP_kfLF1G9Wp9D8EpIGoq4ouJTKCo23xrxT&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For this challenge, i was given a netcat command with the domain name and port number to connect to. &lt;/p&gt;
+
+&lt;p&gt;Command Given: nc mercury.picoctf.net 7449&lt;/p&gt;
+
+&lt;p&gt;Once I netcated to the given netcat, I was given a set of numbers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/AxTo52U_Pn6h2qFbAGFUyx3TemXC9HXaXlaSjilfEA3EGHd8P-N6KWGkiAlGxeHextIyXUSuNCdGBPo3zuobl54ZghMNT5CeKZwMVBnKWSfNIFdtudx6igAvgWiB9LcsVaaYxGK5&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I copied this set of numbers and went to decode it in the decimal(bytes) to ASCII text decoder and I got the flag.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lh4.googleusercontent.com/R6OTADAKCad2ZAK0P2ChfJxsI-RX5sEGBjQxFPawBaqshRnLSWEFn8KaoW4bUz9IMl8c_B-MqEkUs6Hzpj9fiRToNHPCqrQV1tjXSHK8XRfh2XGWiPWnGwYyqP9fSJEXSzmMVWjW&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Flag: picoCTF{g00d_k1tty!_n1c3_k1tty!_f2d7cafa}&lt;/p&gt;</content><author><name>farhaan</name></author><category term="Getting started" /><summary type="html">Recently, I started participating in many CTFs and wanted to hone my CTF skills. That’s where I came across PicoCTF. It’s a page where they collated all the CTF challenges they used for their events (with over 200 challenges). This is part 1 of my PicoCTF series where I walk through every PicoCTF challenge (there are more than 200 challenges collated).</summary></entry></feed>

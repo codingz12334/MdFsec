@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Stapler - VulnHub</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/MdFsec/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/MdFsec/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/MdFsec/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="A Cybersecurity Enthusiast" />
+    <link rel="shortcut icon" href="/MdFsec/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/MdFsec/Stapler" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="MdFsec" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Stapler - VulnHub" />
+    <meta property="og:description" content="Stage 1: Active Reconnaissance Let us first identify the IP address of the target machine. Steps: Nmap Scan the IP Range of 192.168.56.0/24 (Found in General Requirements) Nmap -sn option : Nmap Scan the IP Range of 192.168.56.0/24. To identify which IP address is your target VM, you can see" />
+    <meta property="og:url" content="/MdFsec/Stapler" />
+    <meta property="og:image" content="/MdFsec/assets/images/design.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2022-03-28T04:00:00+00:00" />
+    <meta property="article:modified_time" content="2022-03-28T04:00:00+00:00" />
+    <meta property="article:tag" content="Getting Started" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stapler - VulnHub" />
+    <meta name="twitter:description" content="Stage 1: Active Reconnaissance Let us first identify the IP address of the target machine. Steps: Nmap Scan the IP Range of 192.168.56.0/24 (Found in General Requirements) Nmap -sn option : Nmap Scan the IP Range of 192.168.56.0/24. To identify which IP address is your target VM, you can see" />
+    <meta name="twitter:url" content="/MdFsec/" />
+    <meta name="twitter:image" content="/MdFsec/assets/images/design.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="MdFsec" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Getting Started" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "MdFsec",
+        "logo": "/MdFsec/assets/images/logo_transparent1.png"
+    },
+    "url": "/MdFsec/Stapler",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/MdFsec/assets/images/design.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/MdFsec/Stapler"
+    },
+    "description": "Stage 1: Active Reconnaissance Let us first identify the IP address of the target machine. Steps: Nmap Scan the IP Range of 192.168.56.0/24 (Found in General Requirements) Nmap -sn option : Nmap Scan the IP Range of 192.168.56.0/24. To identify which IP address is your target VM, you can see"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Stapler - VulnHub" href="/MdFsec/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="/MdFsec/"><img src="/MdFsec/assets/images/logo_transparent1.png" alt="MdFsec" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/MdFsec/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/MdFsec/about/">About</a></li>
+</ul>
+
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-getting-started post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="28 March 2022">28 March 2022</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/MdFsec/tag/getting-started/'>GETTING STARTED</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Stapler - VulnHub</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/MdFsec/assets/images/design.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>Stage 1: Active Reconnaissance</p>
+
+<p>Let us first identify the IP address of the target machine.</p>
+
+<p>Steps:</p>
+
+<p>Nmap Scan the IP Range of 192.168.56.0/24 (Found in General Requirements)</p>
+
+<p>Nmap -sn option :</p>
+
+<p><img src="https://lh3.googleusercontent.com/vyMqnx8odg2Lp4RzQPZDkO5bYdjJj_tIznVsdfnUM9RV1a6puxfzO9hmFcoVLBThgkpUjtKcVVCJ45Olk0uUT3rrwYEfhy5TamuGxQYa_fTFyl8AQNPDVMn7rNpprw" alt="" /></p>
+
+<p>Nmap Scan the IP Range of 192.168.56.0/24. To identify which IP address is your target VM, you can see that 192.168.56.108 and 192.168.56.109 is running through Oracle VirtualBox virtual NIC and since 192.168.56.109 is my Kali VM’s IP Address, 192.168.56.108 is our target VM’s IP address</p>
+
+<p><img src="https://lh5.googleusercontent.com/s7hYbSn3YFXPZHxuIVW-_Ns-1CLPuhmVyd41CsimPpA6RMTJtedYF_QC_7hT3pTzvhXQPjOeVVa0e3mb1EIXZVAibWIPbxIW9QVoGfNoyCYQQnNcwMLZgi96hrLbvdh7DXoctZc" alt="" /></p>
+
+<p>Nmap scan is used to determine the ports that are open. </p>
+
+<p>The option -Pn is to run port scan only and disable host discovery. </p>
+
+<p>The option -T5 is for insane speed scan. This allows the nmap scan to run much faster since we are scanning all ports.</p>
+
+<p>The option -p- is to scan all ports from port 1 to port 65,535. Using this option, will make nmap scan all ports allowing any hidden open ports to show as well.</p>
+
+<p>As you can see port 12380 is open but the service is unknown</p>
+
+<p><img src="https://lh4.googleusercontent.com/2F4gj8KcqwD9PBURSwBQUlWkyqBy6M8AT9NXopetUPrbLaWZoPUwPWxCcHFwQBTdFrDKjPE6Va8LdfLG4TuyRZgGDLNdaqZAj1P7PR1Cs27u5m6C3Pxh3-qkxTqhejAjri4kF2g" alt="" /></p>
+
+<p>This command is to Aggressive scan port 12380. The reason for this is because we found that port 12380 is open but the service is unknown hence aggressive scanning the port might give us the service that is running on the port. </p>
+
+<p>As we can see, port 12380 is running a http service and it’s version is Apache httpd 2.4.18 ((Ubuntu)</p>
+
+<p>On a non-standard port, an Apache server is operating. So let us take a look at it as it might give some useful information or even allow us to exploit into the target machine.</p>
+
+<p><img src="https://lh6.googleusercontent.com/UkZ92Jixdc2nF87-hfgrxRatR67C21B50rnBwutexLNcYx5u2B7eqni97VZKFpD6jaIoeUEhAF8fN_Y6gsjk1zyDhJDkYL7G2yZzMjSh-u5IK4dLNZKQjX_cewZbqqfKhh1M8o8" alt="" /></p>
+
+<p>Search <a href="http://192.168.56.108:12380">http://192.168.56.108:12380</a> . This will bring us to this page. Nothing important or useful can be found here. Inspecting the webpage also doesn’t give us anything useful. So let us use a Web Application Analysis tool to get more information from this website.</p>
+
+<p><img src="https://lh6.googleusercontent.com/oPcmdfJLOX9NQc7V0IfzRw-UNo0Re4OBTEDmoRh7Q72B0CMj00ljQHk5dD1b5YFn8LVma4VsLW00s-iRwlRBgaUeOojcPTI2p8DGB7FXi4G9nTw9Rqczl2Wrr_jAaf9UJWESZkE" alt="" /></p>
+
+<p>Nikto is a web server scanner so let us use that to scan the web server.</p>
+
+<p>Run the command and wait for the output. As you can see Nikto has revealed a number of useful information that can be used.</p>
+
+<p>Firstly, we can see that the website has the SSL certificate and uses SSL. SSL is Secure Sockets Layer.  It is a security protocol.</p>
+
+<p>When a website has the SSL certificate, https is in the URL instead of http.</p>
+
+<p><img src="https://lh6.googleusercontent.com/oPcmdfJLOX9NQc7V0IfzRw-UNo0Re4OBTEDmoRh7Q72B0CMj00ljQHk5dD1b5YFn8LVma4VsLW00s-iRwlRBgaUeOojcPTI2p8DGB7FXi4G9nTw9Rqczl2Wrr_jAaf9UJWESZkE" alt="" /></p>
+
+<p>Nikto has also found 3 directories which are /admin112233/, /blogblog/ and /phpmyadmin/. Lastly, Nikto has found a robots.txt file.</p>
+
+<p><img src="https://lh6.googleusercontent.com/oPcmdfJLOX9NQc7V0IfzRw-UNo0Re4OBTEDmoRh7Q72B0CMj00ljQHk5dD1b5YFn8LVma4VsLW00s-iRwlRBgaUeOojcPTI2p8DGB7FXi4G9nTw9Rqczl2Wrr_jAaf9UJWESZkE" alt="" /></p>
+
+<p><img src="https://lh4.googleusercontent.com/-Z51Xkk4jgRM2BnhG0I9y9PNIcuyDO7ZUCM2Wka2z3zY2yIk3L7Lbdzmj2OkTcJ_Zox6jXOMLxF6ZlL9-zOemjlz52XLELHMlrT7bINrFZATwZbveHkuoZDfYg5jkc_02tu5QZ8" alt="" /></p>
+
+<p>Opening <a href="https://192.168.56.108:12380/robots.txt">https://192.168.56.108:12380/robots.txt</a> allowed us to find the directories that were found in the nikto scan.</p>
+
+<p><img src="https://lh3.googleusercontent.com/urUAkjRC3nDGkhzf1ekLsGqtcZISrHj5grIr8H-nf2OkiLGLu83QFEx6iUJG1LdCmodTRTBZPWD5U7BnV_mKkJXjec6JUAaRVurnikulRaXeOvj18qlpkUygrg38qV1hv53Gv6c" alt="" /></p>
+
+<p>Opening <a href="https://192.168.56.108:12380/admin112233xt">https://192.168.56.108:12380/admin112233</a> did not help us find anything at all.</p>
+
+<p><img src="https://lh5.googleusercontent.com/KIvy95evp20f6epUr2AqOpu71ONLEriGFSTOgkADb5opwPmKXfnTox011YGEeLJpL6we6Xz0KTFD22JGlkDjwLlTGTYHBeK5wABjXQk98pZSPC3NQodMj4cXv0XkF7HBdHJU_20" alt="" /></p>
+
+<p>Opening <a href="https://192.168.56.108:12380/phpmyadmin/">https://192.168.56.108:12380/phpmyadmin/</a> brought us to a database login page. This is not useful information</p>
+
+<p>(DON’T KNOW IF I SHOULD KEEP THIS)</p>
+
+<p><img src="https://lh5.googleusercontent.com/oi2VY819JisgNAwnGpqFx42wDxY1iQbBLfNnOcA4RqYlAN7nqq1wQh6RkmcstAs8ScQXxV8asJ9rVrAK6OlGRqnMDFE1_2vFc36-XPgzJfj9ns-Qg3hp71s-z0tsfGodaHPAxwU" alt="" /></p>
+
+<p><img src="https://lh4.googleusercontent.com/GEBhFHNdOnCSR0laKOVKJ2A-BttAI-dU3O2vmcSEWJxdAwKVDtt4R8JXlzZfPrMNzG0e8nSUepz3B1E68Gq59xet0TRs-6Wwd0VE196K88QK4taLnlXMnr1ttbwx3A36BAxcIL4" alt="" /></p>
+
+<p>Fortunately, opening <a href="https://192.168.56.108:12380/blogblog/">https://192.168.56.108:12380/blogblog/</a> has brought us to a website run by WordPress. So now we can use wpscan(WordPress scan) to scan and enumerate users and plugins.</p>
+
+<p><img src="https://lh6.googleusercontent.com/Zs6AFEbWgHQFdPPhr-i1NJaW8_Eatjh7aNEHQl7ZWT_0DaldAApI0AEsFnT6n11b9bGk7TuUqgTlcVbEfHS1KL43n2-KucNE11_emAvRY0p_US4U8_oM3OJ9iJpdGLKbgtd-RXY" alt="" /></p>
+
+<p>The command is wpscan –url <a href="about:blank">https://192.168.56.12380/blogblog</a> -e u –disable-tls-checks</p>
+
+<p>-e u is enumerating users</p>
+
+<p>–disable-tls-checks disables the transport layer security so that wpscan can work.</p>
+
+<p><img src="https://lh5.googleusercontent.com/wzH831wvV-RcV3hf8RZg_fiLth6TlwNYqP13B6VWPoxPFzXvNiKUjt7ohdaSmq6YBbq2LA3ycNbIyXKdtxhGHw0kADq9EFITVuKrZfLmnbNFBiBgTBo9l-M4z8nZvSWZnwbUQSI" alt="" /></p>
+
+<p><img src="https://lh3.googleusercontent.com/ThprrPCre5MlA0EZN7QxFBhvYyyM2v5KBzhd5RatPzNRWo2tnvMc_GGd8dez3Sd0Ek-yOqTgTmxq0AuwC8EFmZDao_0rJErPGWfM-mW1WhMcmST0AploZOMDXcNvFRhgqc5tKkA" alt="" /></p>
+
+<p>These are the users that were found when enumerating users through wpscan</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>Users</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>john</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>elly</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>peter</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>barry</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>garry</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>harry</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>scott</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>kathy</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>tim</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>heather</p>
+
+<table>
+  <tbody>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+
+<p>John smith is the display name. This means that it is not the credentials that is used to log in. As you can see John Smith owns this place. So we can assume he is the owner/admin of this website. So if we hack into John smith’s account, we should be able to get full access to the website.</p>
+
+<p><img src="https://lh3.googleusercontent.com/0p7_BjarVUTDPGb83Y1FH15pYH5VGmvNM_paplGSgf8BesfpF3hllheV8wexV-dEOGEsJuUuabxVibybkY0L1XyHESrBvFck4wYZuiTrSmtSMWFmAT-YRAFNyY0dTJP6I_QMfQw" alt="" /></p>
+
+<p>So, now let us use brute force attack to break into john’s account.</p>
+
+<p>So let’s use the rockyou.txt dictionary to break into john’s account. The reason I am using rockyou.txt is because it has approximately 14 million passwords. Hence it is very effective.</p>
+
+<p><img src="https://lh4.googleusercontent.com/HbSgs-1-GiuCRi78kCgM9YAVpS3EVmH7rxKip-ZbMvMLcFA_KDMhXrWh-9LharJQEizNcxVnJS0Q_f7PnSGO-eorgqD74Mt29RKryzqzSWtjpg3gjaqTnDrA3wYotNB9emM3vQ4" alt="" /></p>
+
+<p>Let us run the command.</p>
+
+<p>We got the password of john in our 1st request.</p>
+
+<p>Username: john</p>
+
+<p>Password: incorrect</p>
+
+<p><img src="https://lh3.googleusercontent.com/bGDVTXW_Gd_KDN6qhQH6jFg5B0ZGkf8yrzoWL7QvQRURrEmkyrB-xtQ5KSUf9Txk5AlcDnJR1GQdElWlMqWdSgx5pVLdyZPobiXi-EFzes43V5KsRHkwfxJ_rLb_G8iGJbPzloc" alt="" /></p>
+
+<p>Now let us login into john using the password incorrect.</p>
+
+<p><img src="https://lh3.googleusercontent.com/RvHswvkWQ9vBn2Nwj2WcYrlogGqE3Duq3g29_xx1SU_f5xSvq0vzJ_cAQJve2F3hR9FeEYOWyxbJ9YdWuxQNEmIHZQI4Jpg9pMiLJ0H3Q-f6djzLezmV_dHluKqKufHdGSC3Jv4" alt="" /></p>
+
+<p>Now, let us upload a plugin</p>
+
+<p><img src="https://lh6.googleusercontent.com/bnqjPulj5VcqfVqBfYflhsqMXjBCrtTpcavNE0oar8CkL2BqOd5W1p1AgGj8b0SbmY7cyv-wtjyAtbRhekss8M7bkLvw6hKr-fsrQo5KTdiFFxfxwW4iKobOFVItHGtEFKbosWk" alt="" /></p>
+
+<p><img src="https://lh6.googleusercontent.com/CqvC4p8jrpk_h9FmnJsh7Aj-l-DjiHBaIdpMekMNGjolVfG6FNOEA72f9iEyEyILMqb2iwpJHj89Gkco7cIn1GPTXuGsIJnUOKekznJDf9ApsjDmwqARBE9dJk4-uQecevu614Y" alt="" /></p>
+
+<p>Now we will upload the php-reverse shell by pentest monkey as a plugin. Copy the link.</p>
+
+<p><img src="https://lh5.googleusercontent.com/IFQvpeCid5a0_tMltKDtvucypYlmm3-U64oXAjsxVZFTbtB5KB7D7IMNocbbsjnjShc2Czj0TUHaGscRDLXYCYo1ZaAWC523JcKghkjccG3ZOUvaO8heED5JuETHTj8jPj5gO8k" alt="" /></p>
+
+<p>Lets a directory for the php-reverse shell. Then let us download the php-reverse shell in the directory.</p>
+
+<p>Let us make some changes before uploading.</p>
+
+<p><img src="https://lh5.googleusercontent.com/TTOXsRglEQGi6MaRXctcpor102zwTMdVBXi4z4EvLtvoHdYMzdQTt4vEN-Gt3RZhkkX5FmNF2PteVZzwgBoDXyKGAjYnrd_vF3qfEdVJNO5CiswkU-XEJYsUQGqaPatOAbIXRQI" alt="" /></p>
+
+<p>Change the Ip to our own Ip address </p>
+
+<p>Change the port number to an unused port</p>
+
+<p><img src="https://lh6.googleusercontent.com/g_1EoZYBwYDBhg53x1g1zA0mnaCLNOIMOFDyAQkg-pixbIuA4hQj4Kmv20K6WzWCRPPaz1zufaptq_KAr-WpDkkWRWxFhOa8cqJ9j9vFh6ckTSa8nJhKoQMUbnuy0MvwLrH7yYE" alt="" /></p>
+
+<p>Lets set up a listener first in port 443</p>
+
+<p><img src="https://lh5.googleusercontent.com/WhQrkVKhdToKaufo0sNnOb8gUNheP2TAYWbYmtdJ3Iw3IwrMKm6yJc9WLtCZomHLKSVpGfOoUfOko4hO6wqd33CdAh6C1uGcteT3B6SqYvYuiuZ7wHBN-FWgfzMMCF9f2ixGOBY" alt="" /></p>
+
+<p>Let’s upload the shell</p>
+
+<p><img src="https://lh5.googleusercontent.com/Q8uisgiHkockBGD0rrllM73ZmyRVvw5hWM_JhAIon0oZNlp1LkfPChQnuuPUcEP-HiY247Fu5MJjLheNMmii-yUFa6slH5TFwusf5izEdLQfvdwu6P674TLi5KeCBWVQFshGlLM" alt="" /></p>
+
+<p>Lets upload the shell</p>
+
+<p><img src="https://lh5.googleusercontent.com/pedsy1pzyTGu7y6F-lkr-Un6WKj9o2C2FN4Lpofpihi1QrLjDFFoxc9RQvLgKKhFZgiHVq2UHS0mrGS102fjPO-IK8kJTvWGnTd7YV3HgCT3EDjw6Ii8OvEW0bBhXMjo5NpOCoQ" alt="" /></p>
+
+<p>Click on install now</p>
+
+<p><img src="https://lh4.googleusercontent.com/8KNtSOZjggMXWDfLKrjbZeYMqA3gV2nEVvmHTZRowhb15KsXuXpqpmEg2sKfmb5Pf8EvJmxQFmKomqdQe33jP9gzDtYnbhKmjnQ8rpOQet3bj09raU7h3aMLBxvBd3NCrUmKcfg" alt="" /></p>
+
+<p><img src="https://lh4.googleusercontent.com/8KNtSOZjggMXWDfLKrjbZeYMqA3gV2nEVvmHTZRowhb15KsXuXpqpmEg2sKfmb5Pf8EvJmxQFmKomqdQe33jP9gzDtYnbhKmjnQ8rpOQet3bj09raU7h3aMLBxvBd3NCrUmKcfg" alt="" /></p>
+
+<p>We can access the shell by going to <a href="https://192.168.56.108:12380/blogblog/wp-content/uploads/">https://192.168.56.108:12380/blogblog/wp-content/uploads/</a>. Now click on the shell that we just upload.</p>
+
+<p><img src="https://lh3.googleusercontent.com/hfHQMcSUJ_HfdpsWmDLUsoe3t3Oy2ysFmPmXUmSH_MU4qNAszxPUJCEQ7svKo1Gd28AMh_9ofXOgkT3tKySYrvjQvxe3iBDI8GkNFJP4_kAw9AfgSSAUssZCPvQ3g1Y1LB0loxs" alt="" /></p>
+
+<p>As you can see our kali VM’s port 443 that was listening received the signal</p>
+
+<p><img src="https://lh6.googleusercontent.com/JESOoxzKROH8oaTYTwTRDs8FVkuMMZ4TuHhZdIRpB7gkv9bQPGCu7E6j1OQhJMTJx570diqDKt3uROVDXziGQctC4Y3MPxGLeUmSO48BZ4YAmCFHNkQDWhqwUFdef4QaKm2_gdE" alt="" /></p>
+
+<p>Now we have access to our target VM. We can prove this by looking at the ip address. Type the command ifconfig and as you can see the ip address is 192.168.56.108 which is our target vm’s ip address.</p>
+
+<p><img src="https://lh5.googleusercontent.com/L0-HgS5oTRKuI8vKpFmAhDPpSm3FnfnQ3dVaZjTTyiFFVsmYYga4XT9YbHWCnC5TWSIEYJHwbUUc82QO-2Pkmu6UKNUYWxaH9kprC3Z2qYLC89K5AR-bn766XYHYkUIlNK7Z1Ms" alt="" /></p>
+
+<p>Use the python code to access the shell.</p>
+
+<p><img src="https://lh6.googleusercontent.com/pBFYsSs9oPSq0sxjq960N_jdCk0Yv_t-39Fo5i7d6MjYBSkNGie72Y9_MBohYHvOIEb7LgMRHHgr_TsRo00wMybDyCM3YPFPrrBBDb_S7puVXW9uLehN9VXrf4d46wl1P-SXcsk" alt="" /></p>
+
+<p>Anyone has the permission to read all files in the machine so let us take a look at the bash_history to find useful information.</p>
+
+<p><img src="https://lh5.googleusercontent.com/CdcmKIMo4RUhh8ZnrTzeFV9Qno5GUvQjpi1iV1QELgk8V4oBm3IDz3jy8l89XwFlnKI2wRJNsUiIsM-AxevLR3Y92vOkqVJEuU7a0YgLqR-VimrHDezDWfAfykErZnGUzMQP7Vs" alt="" /></p>
+
+<p>When we look through the bash_history , we have found two user credentials.</p>
+
+<p>JKanode : thisismypassword</p>
+
+<p>Peter: JZQuyIN5</p>
+
+<p><img src="https://lh5.googleusercontent.com/Ao94x6T4C5yZ9mcDFglbDYKh24E6dBs8DjLcwmCTr6MlFF-xP0sR10xCrPljrQnDev6LNjnrGsaNJcr5mC-mJ7P0L8gsgyvLKjY7LwKJ_kAuVLKxXx_xkBhrzhB_0Gy6Esqklvc" alt="" /></p>
+
+<p>Let us ssh into peter.</p>
+
+<p><img src="https://lh5.googleusercontent.com/6jsElBv6LAE1YU0Ww6WSxBwVwwqc-PiEj6DND5cn21x8LBOC80rGfN2DUYRU3a16XTblwl4la10xUiNtQM3mz8oXtSTgFmj6gykm8poPb34Eiqr6tlH1jHPTVJBdSgMJqgJJJYg" alt="" /></p>
+
+<p>Type the password of peter : JZQuyIN5</p>
+
+<p><img src="https://lh6.googleusercontent.com/y6sRJ1ajC-482aJLdWy8Mo3h7IIWyN7MWTn77-Q4RiEDhlFiJV3eq_iLe4wTxCJOI5IcLYGTJpSMg-KI2-l3DVSnF2N6Mwq83VLOPQuW2pOkwEiWoN--HVZKDCSfpQn3un2t5PU" alt="" /></p>
+
+<p>Select 2</p>
+
+<p><img src="https://lh4.googleusercontent.com/WbrHmWRzZLgBN63o9uzVYhP0kcgy43Po_vkCD8h4FlRJHbbMkcVu1Fs-T4gZOmtVBORrywiVpvcW38JqgbSKdAogVXTLmTVhyDUoZH_vVQcJS9wZ8q71YsQf0i8Umi0h9UETXnc" alt="" /></p>
+
+<p>Check the ifconfig to double confirm that we are in our target machine.</p>
+
+<p><img src="https://lh6.googleusercontent.com/KRtLsgMRrSmQr7gvxM0BCzebFSM-4exPnJ55iWNEKT-lSUJvy7FYT1D5rIOSpJAdxf_EPTmJGHNwQ7OA-N7LCovhtGBje_w2Jp2gH2mCKRngcnfWJ4zHdJ-fq4uKAMMw_HNq1HA" alt="" /></p>
+
+<p><img src="https://lh5.googleusercontent.com/hGUbnMM0e9B5NwX1NREbRq1BL_rL9lGLU2B5U3G_m_E-KGK6mmYr3lTrivkLzixSnAMyidgKtM0OGvcfALL4ULtijekSkWRUteKHowCR4QJWsrUkIAt1mFs101rZx7kfuuneJms" alt="" /></p>
+
+<p>Then run the command sudo -l. This lets us be the super user which gives us elevated priveleges. Then Type the password for peter. Now let us sudo su root which allows us to switch the user to root. After that let us check by running the command whoami. As you can see the output shows root. So we have successfully completed privilege escalation. We can check the machine’s Operating System by running the command hostnamectl, lsb_release -a and cat /etc/os-release.</p>
+
+                </div>
+            </section>
+            
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                
+                    
+                
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/MdFsec/assets/images/blog-cover.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; MdFsec &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/MdFsec/tag/getting-started/">Getting started</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/MdFsec/PicoCTF1">PicoCTF Part 1</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/MdFsec/tag/getting-started/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/MdFsec/PicoCTF1">
+                <div class="post-card-image" style="background-image: url(/MdFsec/assets/images/picoctf.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/MdFsec/PicoCTF1">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Getting started</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">PicoCTF Part 1</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p>Recently, I started participating in many CTFs and wanted to hone my CTF skills. That’s where I came across PicoCTF. It’s a page where they collated all the CTF challenges they used for</p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                
+                    
+                
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/MdFsec/">
+            
+                <img src="/MdFsec/assets/images/favicon.png" alt="MdFsec icon" />
+            
+            <span>MdFsec</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Stapler - VulnHub</div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/MdFsec/">MdFsec</a> &copy; 2022</section>
+                <nav class="site-footer-nav">
+                    <a href="/MdFsec/">Latest Posts</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/MdFsec/assets/images/logo_transparent1.png" alt="MdFsec" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to MdFsec</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/MdFsec/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/MdFsec/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
